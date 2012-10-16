@@ -1,0 +1,19 @@
+$def_size: 16px;
+
+#foo {
+	font-size: $def_size;
+	strong {
+		font-size: $def_size * 2;
+	}
+
+	a {
+		color: blue;
+		&:hover {
+			color: orange;
+		}
+	}
+
+	h1 {
+		font-size: $def_size * 3;
+	}
+}

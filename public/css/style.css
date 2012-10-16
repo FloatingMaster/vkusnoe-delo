@@ -1,0 +1,10 @@
+#foo {
+  font-size: 16px; }
+  #foo strong {
+    font-size: 32px; }
+  #foo a {
+    color: blue; }
+    #foo a:hover {
+      color: orange; }
+  #foo h1 {
+    font-size: 48px; }
