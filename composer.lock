@@ -1,0 +1,57 @@
+{
+    "hash": "8a7728b4ddfce168893c865ea2a9c2f7",
+    "packages": [
+        {
+            "name": "everyman/neo4jphp",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "http://github.com/jadell/neo4jphp",
+                "reference": "138d36ac1ef8e6b4f6ee9e8f54a15b9dbaf0bcc3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/jadell/neo4jphp/zipball/138d36ac1ef8e6b4f6ee9e8f54a15b9dbaf0bcc3",
+                "reference": "138d36ac1ef8e6b4f6ee9e8f54a15b9dbaf0bcc3",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0",
+                "ext-curl": "*"
+            },
+            "time": "1346988799",
+            "type": "library",
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "Everyman\\Neo4j": "lib/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Josh Adell",
+                    "email": "josh.adell@gmail.com",
+                    "homepage": "http://joshadell.com"
+                }
+            ],
+            "description": "Wrapper for the Neo4j graph database REST interface",
+            "homepage": "http://github.com/jadell/neo4jphp/wiki",
+            "keywords": [
+                "database",
+                "graph",
+                "neo4j"
+            ]
+        }
+    ],
+    "packages-dev": null,
+    "aliases": [
+
+    ],
+    "minimum-stability": "dev",
+    "stability-flags": [
+
+    ]
+}

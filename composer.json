@@ -1,0 +1,7 @@
+{
+	"require":
+	{
+		"everyman/neo4jphp":"*"
+	},
+	"minimum-stability" : "dev"
+}
