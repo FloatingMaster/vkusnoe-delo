@@ -35,7 +35,17 @@
 
 return array(
 
-	'docs' => array('handles' => 'docs'),
-	'laraveless' => array('auto' => true),
+	'docs' => array(
+		'handles' => 'docs'
+	),
+
+	'laraveless' => array(
+		'auto' => true
+	),
+	
+	'basset' => array(
+        'handles' => 'basset',
+        'auto'    => true
+    )
 
 );

@@ -37,7 +37,7 @@ Route::get('/', function()
 	return View::make('home.index');
 });
 
-Route::get('ololo', function()
+Route::get('(:any)', function()
 {
 	return "YOU ARE IDIOT :3";
 });

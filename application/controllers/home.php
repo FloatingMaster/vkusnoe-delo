@@ -30,6 +30,14 @@ class Home_Controller extends Base_Controller {
 	|
 	*/
 
+	public function __construct()
+	{
+		parent::__construct();
+		Asset::add('jquery', 'js/jquery.js');
+		Asset::add('main-style', 'css/style.css');
+		//Asset::add('typography', 'css/typography.css');
+	}
+
 	public function action_index()
 	{
 		return View::make('home.index');

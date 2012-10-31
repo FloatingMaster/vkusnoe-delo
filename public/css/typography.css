@@ -33,20 +33,3 @@
   font-weight:normal;
   font-style:normal;
 }
-body {
-  background:green;
-  font-size:28px;
-}
-body .wrapper {
-  width:940px;
-  margin:0 auto;
-}
-body .banner {
-  font-family:'Astron-Cyrillic';
-  font-size:5em;
-  color:white;
-}
-body .notice {
-  font-family:'Casper';
-  font-size:0.8em;
-}

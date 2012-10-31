@@ -3,7 +3,8 @@ class Test_Controller extends Controller
 {
 	public function action_index()
 	{
-		return "It works!";
+		Asset::add('jquery', 'js/jquery.js');
+		return "It works! ". Asset::styles() . Asset::scripts();
 	}
 
 	public function action_welcome($param = '')
