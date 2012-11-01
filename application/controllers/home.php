@@ -34,8 +34,8 @@ class Home_Controller extends Base_Controller {
 	{
 		parent::__construct();
 		Asset::add('jquery', 'js/jquery.js');
-		Asset::add('main-style', 'css/style.css');
 		//Asset::add('typography', 'css/typography.css');
+		Asset::add('main-style', 'css/style.css');
 	}
 
 	public function action_index()
