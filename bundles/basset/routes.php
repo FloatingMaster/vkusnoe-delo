@@ -23,13 +23,13 @@
 | and begin adding your assets.
 |
 */
-Basset::share('jquery', 'jquery.js');
+/*Basset::share('jquery', 'jquery.js');
 
 Basset::scripts('vd', function($basset)
 {
 	$basset->add('jquery')
 		   ->add('main', 'main.js');
-});
+});*/
 
 /*
 |--------------------------------------------------------------------------
