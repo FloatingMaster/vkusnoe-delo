@@ -1,20 +1,15 @@
 @import 'elements';
 @import 'typography';
+@import 'banner';
 
 body {
 	background: transparent url('/img/tile.png') top left repeat;
 	font-size: 28px;
 
 	.wrapper {
-		width: 940px;
+		position: relative;
+		width: 1240px;
 		margin: 0 auto;
-	}
-
-	.banner {
-		font-family: @bannerFont;
-		font-size: @biggest;
-		color: white;
-		text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4);
 	}
 
 	.notice {
@@ -23,5 +18,13 @@ body {
 		background: white;
 		padding: 10px;
 		.rounded(5px);
+	}
+
+	@media all and (max-width: 1300px) {
+		font-size: 24px;
+
+		.wrapper {
+			width: 940px;
+		}
 	}
 }

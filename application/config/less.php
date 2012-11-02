@@ -5,6 +5,7 @@ return array(
     ),
     'files' => array(
     	path('app').'less/style.less' => path('public').'css/style.css'
+    	//path('app').'less/banner.less' => path('public').'css/banner.css',
     ),
     'snippets' => array(
 

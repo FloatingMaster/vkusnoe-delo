@@ -49,6 +49,16 @@ Laravel\Autoloader::$aliases = $aliases;
 
 /*
 |--------------------------------------------------------------------------
+| Vendor Auto-Loader
+|--------------------------------------------------------------------------
+|
+| Autoloads the libraries, installed using Composer.
+*/
+
+require_once path('vendor') . 'autoload.php';
+
+/*
+|--------------------------------------------------------------------------
 | Auto-Loader Mappings
 |--------------------------------------------------------------------------
 |
@@ -76,6 +86,7 @@ Autoloader::map(array(
 Autoloader::directories(array(
 	path('app').'models',
 	path('app').'libraries',
+	path('app').'database',
 ));
 
 /*

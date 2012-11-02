@@ -34,7 +34,7 @@ class Home_Controller extends Base_Controller {
 	{
 		parent::__construct();
 		Asset::add('jquery', 'js/jquery.js');
-		//Asset::add('typography', 'css/typography.css');
+		//Asset::add('banner', 'css/banner.css');
 		Asset::add('main-style', 'css/style.css');
 	}
 
