@@ -1,0 +1,3 @@
+[submodule "vendor/everyman/neo4jphp"]
+	path = vendor/everyman/neo4jphp
+	url = git://github.com/jadell/neo4jphp.git
