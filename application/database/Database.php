@@ -1,4 +1,6 @@
 <?php
+namespace VkusDelo;
+
 use Everyman\Neo4j\Client,
     Everyman\Neo4j\Transport\Curl,
     Everyman\Neo4j\Node,

@@ -8,11 +8,19 @@ class Test_Controller extends Controller
 {
 	public function action_index()
 	{
-		$client = new Client(new Curl());
 
-		$me = $client->getNode(0);
+		$client = new Client();
 
-		var_dump($me);
+		for($i=0; $i<10; $i++) {
+			$me = $client->getNode($i);
+
+			if($me != NULL) $client->getEntityCache()->deleteCachedEntity($me);
+
+			$me = $client->getNode($i);
+
+			print_r($me);
+			echo '<br />';
+		}
 
 		return "It works! ";
 	}
