@@ -7,7 +7,7 @@
 		@yield_section
 	</title>
 	@section('meta')
-		<meta name='description'
+		<meta name='description' content='Вкусное Дело - социальная сеть для кулинаров и гурманов. Скоро открытие!' />
 	{{ Asset::styles();  }}
 	{{ Asset::scripts(); }}
 </head>
