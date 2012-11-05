@@ -119,3 +119,6 @@ Route::filter('auth', function()
  * Register all of the controllers
  */
 Route::controller(Controller::detect());
+
+// Route for Admin_Controller
+Route::controller('admin');
