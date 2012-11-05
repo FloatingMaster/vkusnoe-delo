@@ -11,7 +11,11 @@
 
 .banner {
 
-	height: 670px;
+	height: 638px;
+
+	@media all and (max-width: 1300px) {
+		height: 558px;
+	}
 
 	.plate {
 		position: relative;
@@ -19,6 +23,13 @@
 		width: 640px;
 		height: 638px;
 		margin: 0 auto -370px auto;
+
+		@media all and (max-width: 1300px) {
+			background-image: url('/img/plate-940.png');
+			width: 560px;
+			height: 558px;
+			margin-bottom: -320px;
+		}
 	}
 
 	.ribbon {
@@ -130,6 +141,11 @@
 			background: url('/img/fork.png') left top no-repeat;
 			width: 57px;
 			height: 428px;
+
+			@media all and (max-width: 1300px) {
+				background-image: url('/img/fork-940.png');
+				top: -160px;
+			}
 		}
 	}
 }

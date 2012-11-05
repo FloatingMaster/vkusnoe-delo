@@ -44,5 +44,7 @@ namespace :deploy do
     task :restart do
     end
     task :finalize_update do
+    	run "#{try_sudo} chown -R www-data:art /srv/www/vkusnoe-delo.ru"
+    	run "#{try_sudo} chmod -R 775 /srv/www/vkusnoe-delo.ru"
     end
   end
