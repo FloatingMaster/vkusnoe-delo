@@ -8,4 +8,5 @@
 		<span class="corner left"></span>
 		<div class="banner-text">Вкусное Дело</div>
 	</div>
+	<div class="advert">Социальная сеть для кулинаров и гурманов</div>
 </div>

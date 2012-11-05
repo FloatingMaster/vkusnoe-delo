@@ -1,3 +1,4 @@
+@import 'reset.css';
 @font-face {
   font-family: 'Astron-Cyrillic';
   src: url('/font/Astron-Cyrillic.eot');
@@ -184,18 +185,9 @@
     top: -160px;
   }
 }
-body {
-  background: transparent url('/img/tile.png') top left repeat;
-  font-size: 28px;
-}
-body .wrapper {
+.banner .advert {
   position: relative;
-  width: 1240px;
-  margin: 0 auto;
-}
-body .advert {
-  position: relative;
-  top: -7em;
+  top: 3em;
   font-family: 'Casper';
   font-size: ;
   background: white;
@@ -208,6 +200,22 @@ body .advert {
   -webkit-box-shadow: 0 0 4px rgba(0,0,0,0.6);
   -moz-box-shadow: 0 0 4px rgba(0,0,0,0.6);
   box-shadow: 0 0 4px rgba(0,0,0,0.6);
+}
+body {
+  background: transparent url('/img/tile.png') top left repeat;
+  font-size: 28px;
+}
+body .wrapper {
+  position: relative;
+  width: 1240px;
+  margin: 0 auto;
+}
+body .cursive {
+  font-family: 'Astron-Cyrillic';
+  font-size: 3em;
+  color: white;
+  text-shadow: 2px 2px 2px rgba(0,0,0,0.4);
+  text-align: center;
 }
 @media all and (max-width: 1300px) {
   body {

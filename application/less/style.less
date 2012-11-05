@@ -1,4 +1,5 @@
-@import 'elements';
+@import 'reset.css';
+@import 'elements'; 
 @import 'typography';
 @import 'banner';
 
@@ -12,19 +13,12 @@ body {
 		margin: 0 auto;
 	}
 
-	.advert {
-		position: relative;
-		top: -7em;
-		font-family: @mainFont;
-		font-size: @nornal;
-		background: white;
-		padding: 1em;
-		margin: 0 auto;
-		width: 22em;
+	.cursive {
+		font-family: @bannerFont;
+		font-size: @bigger;
+		color: white;
+		text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4);
 		text-align: center;
-		outline: 1px solid #EFEFEF;
-		outline-offset: -0.5em;
-		.drop-shadow(0, 0, 4px, 0.6);
 	}
 
 	@media all and (max-width: 1300px) {

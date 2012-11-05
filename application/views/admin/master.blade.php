@@ -18,7 +18,7 @@
 	</div>
 	<div class="container">
 		@section('main')
-			Главная
+			<h1>Панель администратора /
 		@yield_section
 	</div>
 </body>

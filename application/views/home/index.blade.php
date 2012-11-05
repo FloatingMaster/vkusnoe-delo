@@ -6,5 +6,5 @@
 
 @section('main')
 	{{ View::make('parts.banner') }}
-	<div class="advert">Социальная сеть для кулинаров и гурманов</div>
+	<p class="cursive">Скоро открытие!</p>
 @endsection

@@ -6,6 +6,8 @@
 			| Вкусное Дело
 		@yield_section
 	</title>
+	@section('meta')
+		<meta name='description'
 	{{ Asset::styles();  }}
 	{{ Asset::scripts(); }}
 </head>
