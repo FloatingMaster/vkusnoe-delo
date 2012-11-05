@@ -33,7 +33,7 @@
   font-weight: normal;
   font-style: normal;
 }
-.banner {
+.banner-text {
   position: relative;
   font-family: 'Astron-Cyrillic';
   font-size: 5em;
@@ -43,7 +43,17 @@
   margin-bottom: -0.2em;
   padding-top: 0.1em;
 }
-.ribbon {
+.banner {
+  height: 670px;
+}
+.banner .plate {
+  position: relative;
+  background: url('/img/plate.png') center center no-repeat;
+  width: 640px;
+  height: 638px;
+  margin: 0 auto -370px auto;
+}
+.banner .ribbon {
   position: relative;
   width: 30em;
   margin: 0 auto;
@@ -59,11 +69,11 @@
   -moz-box-shadow: 0 1px 1px rgba(0,0,0,0.5);
   box-shadow: 0 1px 1px rgba(0,0,0,0.5);
 }
-.ribbon::before,
-.ribbon::after {
+.banner .ribbon::before,
+.banner .ribbon::after {
   position: absolute;
   top: 1.5em;
-  z-index: -2;
+  z-index: -3;
   content: '';
   width: 0;
   height: 0;
@@ -74,21 +84,21 @@
   border-left-width: 2.5em;
   border-right-width: 2.5em;
 }
-.ribbon::before {
+.banner .ribbon::before {
   border-left-color: transparent;
   left: -3.5em;
   -webkit-box-shadow: 1px 1px 1px rgba(0,0,0,0.3);
   -moz-box-shadow: 1px 1px 1px rgba(0,0,0,0.3);
   box-shadow: 1px 1px 1px rgba(0,0,0,0.3);
 }
-.ribbon::after {
+.banner .ribbon::after {
   border-right-color: transparent;
   right: -3.5em;
   -webkit-box-shadow: -1px 1px 1px rgba(0,0,0,0.3);
   -moz-box-shadow: -1px 1px 1px rgba(0,0,0,0.3);
   box-shadow: -1px 1px 1px rgba(0,0,0,0.3);
 }
-.ribbon .stripes {
+.banner .ribbon .stripes {
   position: absolute;
   margin: 5px 0 5px 0;
   width: 100%;
@@ -96,40 +106,64 @@
   border-top: 2px dashed rgba(165,168,90,0.5);
   border-bottom: 2px dashed rgba(165,168,90,0.5);
 }
-.ribbon .stripes::before,
-.ribbon .stripes::after {
+.banner .ribbon .stripes::before,
+.banner .ribbon .stripes::after {
   position: absolute;
   top: 1.5em;
-  z-index: -1;
+  z-index: -2;
   content: '';
   width: 5em;
   height: 4em;
   border-top: 2px dashed rgba(165,168,90,0.5);
   border-bottom: 2px dashed rgba(165,168,90,0.5);
 }
-.ribbon .stripes::before {
+.banner .ribbon .stripes::before {
   left: -3.5em;
 }
-.ribbon .stripes::after {
+.banner .ribbon .stripes::after {
   right: -3.5em;
 }
-.ribbon .corner {
+.banner .ribbon .corner {
   position: absolute;
-  z-index: -1;
+  z-index: -2;
   top: 100%;
   width: 0;
   height: 0;
   border: 0.84em solid #897c38;
 }
-.ribbon .corner.left {
+.banner .ribbon .corner.left {
   left: -2px;
   border-bottom-color: transparent;
   border-left-color: transparent;
 }
-.ribbon .corner.right {
+.banner .ribbon .corner.right {
   right: -2px;
   border-bottom-color: transparent;
   border-right-color: transparent;
+}
+.banner .ribbon .knife {
+  position: absolute;
+  z-index: -1;
+  top: -180px;
+  right: 0;
+  background: url('/img/knife.png') left top no-repeat;
+  width: 41px;
+  height: 441px;
+}
+@media all and (max-width: 1300px) {
+  .banner .ribbon .knife {
+    background-image: url('/img/knife-940.png');
+    top: -160px;
+  }
+}
+.banner .ribbon .fork {
+  position: absolute;
+  z-index: -1;
+  top: -175px;
+  left: -15px;
+  background: url('/img/fork.png') left top no-repeat;
+  width: 57px;
+  height: 428px;
 }
 body {
   background: transparent url('/img/tile.png') top left repeat;
@@ -140,17 +174,21 @@ body .wrapper {
   width: 1240px;
   margin: 0 auto;
 }
-body .notice {
+body .advert {
+  position: relative;
+  top: -7em;
   font-family: 'Casper';
-  font-size: 0.8em;
+  font-size: ;
   background: white;
-  padding: 10px;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
+  padding: 1em;
+  margin: 0 auto;
+  width: 22em;
+  text-align: center;
+  outline: 1px solid #EFEFEF;
+  outline-offset: -0.5em;
+  -webkit-box-shadow: 0 0 4px rgba(0,0,0,0.6);
+  -moz-box-shadow: 0 0 4px rgba(0,0,0,0.6);
+  box-shadow: 0 0 4px rgba(0,0,0,0.6);
 }
 @media all and (max-width: 1300px) {
   body {

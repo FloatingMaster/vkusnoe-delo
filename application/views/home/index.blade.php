@@ -5,11 +5,6 @@
 @endsection
 
 @section('main')
-	<div class="ribbon">
-		<div class="stripes"></div>
-		<span class="corner right"></span>
-		<span class="corner left"></span>
-		<div class="banner">Вкусное Дело</div>
-	</div>
-	<!-- <div class="notice">Все права защищены</div> -->
+	{{ View::make('parts.banner') }}
+	<div class="advert">Социальная сеть для кулинаров и гурманов</div>
 @endsection

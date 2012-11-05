@@ -1,4 +1,4 @@
-.banner {
+.banner-text {
 	position: relative;
 	font-family: @bannerFont;
 	font-size: @biggest;
@@ -9,89 +9,127 @@
 	padding-top: 0.1em;
 }
 
-.ribbon {
-	position: relative;
-	width: 30em;
-	margin: 0 auto;
+.banner {
 
-	.gradient(#eada2d, #e9d92c, #f4e431);
-	.bordered(rgba(130, 110, 46, 0.5), rgba(130, 110, 46, 0.5), rgba(165, 168, 90, 0.5), rgba(130, 110, 46, 0.5));
-	.drop-shadow(0, 1px, 1px, 0.5);
+	height: 670px;
 
-	&::before, &::after {
-		position: absolute;
-		top: 1.5em;
-		z-index: -2;
-		content: '';
-		width: 0;
-		height: 0;
-		border-style: solid;
-		border-color: #eada2d;
-		border-top-width: 2.3em;
-		border-bottom-width: 2.3em;
-		border-left-width: 2.5em;
-		border-right-width: 2.5em;
+	.plate {
+		position: relative;
+		background: url('/img/plate.png') center center no-repeat;
+		width: 640px;
+		height: 638px;
+		margin: 0 auto -370px auto;
 	}
 
-	&::before {
-		border-left-color: transparent;
-		left: -3.5em;
-		.drop-shadow(1px, 1px, 1px, 0.3);
-	}
+	.ribbon {
 
-	&::after {
-		border-right-color: transparent;
-		right: -3.5em;
-		.drop-shadow(-1px, 1px, 1px, 0.3);
-	}
+		position: relative;
+		width: 30em;
+		margin: 0 auto;
 
-	.stripes {
-		position: absolute;
-		margin: 5px 0 5px 0;
-		width: 100%;
-		height: 88%;
-		border-top: 2px dashed rgba(165, 168, 90, 0.5);
-		border-bottom: 2px dashed rgba(165, 168, 90, 0.5);
+		.gradient(#eada2d, #e9d92c, #f4e431);
+		.bordered(rgba(130, 110, 46, 0.5), rgba(130, 110, 46, 0.5), rgba(165, 168, 90, 0.5), rgba(130, 110, 46, 0.5));
+		.drop-shadow(0, 1px, 1px, 0.5);
 
 		&::before, &::after {
 			position: absolute;
 			top: 1.5em;
-			z-index: -1;
+			z-index: -3;
 			content: '';
-			width: 5em;
-			height: 4em;
-			border-top: 2px dashed rgba(165, 168, 90, 0.5);
-			border-bottom: 2px dashed rgba(165, 168, 90, 0.5);
+			width: 0;
+			height: 0;
+			border-style: solid;
+			border-color: #eada2d;
+			border-top-width: 2.3em;
+			border-bottom-width: 2.3em;
+			border-left-width: 2.5em;
+			border-right-width: 2.5em;
 		}
 
 		&::before {
+			border-left-color: transparent;
 			left: -3.5em;
+			.drop-shadow(1px, 1px, 1px, 0.3);
 		}
 
 		&::after {
-			right: -3.5em;
-		}
-	}
-
-	.corner {
-		position: absolute;
-		z-index: -1;
-		top: 100%;
-		width: 0;
-		height: 0;
-		border: 0.84em solid #897c38;
-
-		&.left {
-			left: -2px;
-			border-bottom-color: transparent;
-			border-left-color: transparent;
-		}
-
-		&.right {
-			right: -2px;
-			border-bottom-color: transparent;
 			border-right-color: transparent;
+			right: -3.5em;
+			.drop-shadow(-1px, 1px, 1px, 0.3);
+		}
+
+		.stripes {
+			position: absolute;
+			margin: 5px 0 5px 0;
+			width: 100%;
+			height: 88%;
+			border-top: 2px dashed rgba(165, 168, 90, 0.5);
+			border-bottom: 2px dashed rgba(165, 168, 90, 0.5);
+
+			&::before, &::after {
+				position: absolute;
+				top: 1.5em;
+				z-index: -2;
+				content: '';
+				width: 5em;
+				height: 4em;
+				border-top: 2px dashed rgba(165, 168, 90, 0.5);
+				border-bottom: 2px dashed rgba(165, 168, 90, 0.5);
+			}
+
+			&::before {
+				left: -3.5em;
+			}
+
+			&::after {
+				right: -3.5em;
+			}
+		}
+
+		.corner {
+			position: absolute;
+			z-index: -2;
+			top: 100%;
+			width: 0;
+			height: 0;
+			border: 0.84em solid #897c38;
+
+			&.left {
+				left: -2px;
+				border-bottom-color: transparent;
+				border-left-color: transparent;
+			}
+
+			&.right {
+				right: -2px;
+				border-bottom-color: transparent;
+				border-right-color: transparent;
+			}
+		}
+
+		.knife {
+			position: absolute;
+			z-index: -1;
+			top: -180px;
+			right: 0;
+			background: url('/img/knife.png') left top no-repeat;
+			width: 41px;
+			height: 441px;
+
+			@media all and (max-width: 1300px) {
+				background-image: url('/img/knife-940.png');
+				top: -160px;
+			}
+		}
+
+		.fork {
+			position: absolute;
+			z-index: -1;
+			top: -175px;
+			left: -15px;
+			background: url('/img/fork.png') left top no-repeat;
+			width: 57px;
+			height: 428px;
 		}
 	}
-
 }

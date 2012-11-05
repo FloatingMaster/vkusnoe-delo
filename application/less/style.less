@@ -12,12 +12,19 @@ body {
 		margin: 0 auto;
 	}
 
-	.notice {
+	.advert {
+		position: relative;
+		top: -7em;
 		font-family: @mainFont;
-		font-size: @small;
+		font-size: @nornal;
 		background: white;
-		padding: 10px;
-		.rounded(5px);
+		padding: 1em;
+		margin: 0 auto;
+		width: 22em;
+		text-align: center;
+		outline: 1px solid #EFEFEF;
+		outline-offset: -0.5em;
+		.drop-shadow(0, 0, 4px, 0.6);
 	}
 
 	@media all and (max-width: 1300px) {
