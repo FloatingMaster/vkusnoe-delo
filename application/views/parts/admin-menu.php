@@ -1,8 +1,8 @@
 <ul class="nav">
 	<li>
-		<a href='#'>Главная</a>
+		<a href='/admin'>Главная</a>
 	</li>
 	<li>
-		<a href='#'>Новый рецепт</a>
+		<a href='/admin/recipe'>Новый рецепт</a>
 	</li>
 </ul>

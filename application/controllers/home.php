@@ -36,6 +36,9 @@ class Home_Controller extends Base_Controller {
 		Asset::add('jquery', 'js/jquery.js');
 		//Asset::add('banner', 'css/banner.css');
 		Asset::add('main-style', 'css/style.css');
+
+		Seovel::setTitle('Главная');
+		Seovel::setDescription('Вкусное Дело - социальная сеть для поваров и кулинаров. Скоро открытие!');
 	}
 
 	public function action_index()

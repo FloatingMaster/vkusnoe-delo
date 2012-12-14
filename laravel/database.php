@@ -94,6 +94,9 @@ class Database {
 			case 'sqlsrv':
 				return new Database\Connectors\SQLServer;
 
+			case 'neo4j':
+				return new Database\Connectors\Neo4j;
+
 			default:
 				throw new \Exception("Database driver [$driver] is not supported.");
 		}

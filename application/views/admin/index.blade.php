@@ -1,5 +1,5 @@
 @layout('admin.master')
 
-@section('main')
+@section('header')
 	@parent Главная</h1>
 @endsection

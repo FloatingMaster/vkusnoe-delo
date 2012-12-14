@@ -33,3 +33,6 @@ Autoloader::map(array(
 Autoloader::directories(array(
 	Bundle::path('seovel') . 'classes'
 ));
+
+Seovel::init();
+Seovel::defaultTitleSuffix(' | Вкусное дело');

@@ -86,8 +86,31 @@ Autoloader::map(array(
 Autoloader::directories(array(
 	path('app').'models',
 	path('app').'libraries',
-	path('app').'database',
 ));
+
+/*
+|--------------------------------------------------------------------------
+| Neo4j Database Init
+|--------------------------------------------------------------------------
+|
+| Initiate the connection to the Neo4j Graph Database Server
+|
+*/
+
+VD\Database::connect();
+
+/*
+|--------------------------------------------------------------------------
+| Neo4j Auth Driver Init
+|--------------------------------------------------------------------------
+| 
+| Registering our custom auth driver for Neo4j
+|
+*/
+
+Auth::extend('neo4j', function() {
+	return new Laravel\Auth\Drivers\Neo4j();
+});
 
 /*
 |--------------------------------------------------------------------------

@@ -1,5 +1,6 @@
 <?php
-use Everyman\Neo4j\Client,
+use VD\Database as DB,
+	Everyman\Neo4j\Client,
     Everyman\Neo4j\Transport\Curl,
     Everyman\Neo4j\Node,
     Everyman\Neo4j\Relationship;
@@ -9,14 +10,10 @@ class Test_Controller extends Controller
 	public function action_index()
 	{
 
-		$client = new Client();
+		DB::connect();
 
 		for($i=0; $i<10; $i++) {
-			$me = $client->getNode($i);
-
-			if($me != NULL) $client->getEntityCache()->deleteCachedEntity($me);
-
-			$me = $client->getNode($i);
+			$me = Auth::retrieve($i);
 
 			print_r($me);
 			echo '<br />';

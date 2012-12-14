@@ -48,5 +48,10 @@ return array(
         'auto'    => true
     ),
 
+    'seovel' => array(
+    	'handles' => 'seovel',
+    	'auto'    => true	
+    ),
+
     'bob'
 );

@@ -37,9 +37,9 @@ Route::get('/', function()
 	return View::make('home.index');
 });
 
-Route::get('(:any)', function()
+Route::get('admin-login', function()
 {
-	return "YOU ARE IDIOT :3";
+	return "Страница скрыта от посторонних глаз";
 });
 
 /*
@@ -113,6 +113,11 @@ Route::filter('csrf', function()
 Route::filter('auth', function()
 {
 	if (Auth::guest()) return Redirect::to('login');
+});
+
+Route::filter('admin_auth', function()
+{
+	if (Auth::guest() || ! Auth::user()->hasCap('view_admin_panel')) return Redirect::to('admin-login');
 });
 
 /**
