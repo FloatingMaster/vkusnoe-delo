@@ -37,9 +37,9 @@ Route::get('/', function()
 	return View::make('home.index');
 });
 
-Route::get('admin-login', function()
+Route::get('adminlogin', function()
 {
-	return "Страница скрыта от посторонних глаз";
+	return View::make('admin.login');
 });
 
 /*
@@ -117,7 +117,7 @@ Route::filter('auth', function()
 
 Route::filter('admin_auth', function()
 {
-	if (Auth::guest() || ! Auth::user()->hasCap('view_admin_panel')) return Redirect::to('admin-login');
+	if (Auth::guest() || ! Auth::user()->hasCap('view_admin_panel')) return Redirect::to('adminlogin');
 });
 
 /**

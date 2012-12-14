@@ -21,16 +21,22 @@ class Neo4j extends Driver {
 			if (filter_var($id, FILTER_VALIDATE_INT) !== false)
 			{
 				$node = DB::client()->getNode($id);
+
+				// ----------------------------------------------------
+				// TODO: сделать более приличную обработку исключений
+				// ----------------------------------------------------
+
 				if ($node == NULL) {
 					throw new \Exception("Узел с указанным ID не найден");
 				}
 				if ($node->getProperty('type') !== 'user') {
 					throw new \Exception("Тип запрашиваемого узла [".$node->getProperty('type')."] неверен (требуется тип user)");
 				}
-				return new User(DB::client(), $node);
+				return new User($node);
 			}
 		} catch(\Exception $e) {
 			echo $e->getMessage();
+			return NULL;
 		}
 	}
 
@@ -47,7 +53,12 @@ class Neo4j extends Driver {
 
 		//Производим поиск пользователя по индексу
 		$user = User::getByIndex($handle, $arguments['handle']);
-		
+		if (! is_null($user) && Hash::check( $arguments['password'], $user->getProperty($password_field) ) )
+		{
+			return $this->login($user->getId(), $arguments['remember']);
+		}
+
+		return false;
 	}
 }
 

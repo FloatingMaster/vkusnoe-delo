@@ -19,12 +19,12 @@ class User extends Node
 	 * @param 	Client 	$client
 	 * @param 	Node	$node
 	 */
-	public function __construct(Client $client, Node $node)
+	public function __construct(Node $node)
 	{
 		foreach ($node as $property => $value) {
 			$this->$property = $value;
 		}
-		parent::__construct($client);
+		parent::__construct(DB::client());
 	}
 
 	/**
@@ -72,6 +72,12 @@ class User extends Node
 		# code...
 	}
 
+	/**
+	 * Есть ли такая возможность у пользователя?
+	 * 
+	 * @param 	string 	$capability
+	 * @return 	boolean
+	 */
 	public function hasCap($capability)
 	{
 		return in_array($capability, json_decode($this->getProperty('capabilities') ) );
