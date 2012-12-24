@@ -52,10 +52,11 @@ Cooking social network based on Laravel
 
 ### Техническая реализация
 
-Техническую спецификацию проекта ищите в wiki
+Техническую спецификацию проекта ищите в [wiki для разработчиков][wiki]
 
 
 [vk]: http://vk.com
 [fb]: http://facebook.com
 [twit]: http://twitter.com
 [habr]: http://habrahabr.ru
+[wiki]: https://github.com/flyingleafe/vkusnoe-delo/wiki
