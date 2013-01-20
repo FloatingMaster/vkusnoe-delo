@@ -2,7 +2,7 @@
 
 use Laravel\Hash,
 	Laravel\Config,
-	VD\User,
+	VD\Member,
 	VD\Database as DB;
 
 class Neo4j extends Driver {
@@ -20,19 +20,17 @@ class Neo4j extends Driver {
 		try {
 			if (filter_var($id, FILTER_VALIDATE_INT) !== false)
 			{
-				$node = DB::client()->getNode($id);
-
+				$member = Member::getById($id);
+				
 				// ----------------------------------------------------
 				// TODO: сделать более приличную обработку исключений
 				// ----------------------------------------------------
 
-				if ($node == NULL) {
+				if ($member == NULL) {
 					throw new \Exception("Узел с указанным ID не найден");
 				}
-				if ($node->getProperty('type') !== 'user') {
-					throw new \Exception("Тип запрашиваемого узла [".$node->getProperty('type')."] неверен (требуется тип user)");
-				}
-				return new User($node);
+
+				return $member;
 			}
 		} catch(\Exception $e) {
 			echo $e->getMessage();
@@ -48,14 +46,15 @@ class Neo4j extends Driver {
 	 */
 	public function attempt($arguments = array())
 	{
-		$handle = Config::get('auth.username');
-		$password_field = Config::get('auth.password', 'password');
-
-		//Производим поиск пользователя по индексу
-		$user = User::getByIndex($handle, $arguments['handle']);
-		if (! is_null($user) && Hash::check( $arguments['password'], $user->getProperty($password_field) ) )
+		$email = $arguments['username'];
+		$password = $arguments['password'];
+		$member = Member::getByEmail($email);
+		if (!$member) {
+			echo 'Member not Found';
+		}
+		if (! is_null($member) && Hash::check( $password, $member->get('password') ) )
 		{
-			return $this->login($user->getId(), $arguments['remember']);
+			return $this->login($member->getId(), 0);//$arguments['remember']
 		}
 
 		return false;

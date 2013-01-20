@@ -42,6 +42,35 @@ Route::get('adminlogin', function()
 	return View::make('admin.login');
 });
 
+Route::get('register', function()
+{
+	return View::make('form.register');
+});
+
+Route::post('register', function()
+{
+	$rules = array('password' => 'required|alpha_num|max:25');
+	$data = Input::all();
+    $validation = Validator::make($data, $rules);
+    if ($validation->fails()) {
+        return Redirect::to('form.register')->with_errors($validation);
+    }
+	
+	$db = VD\Database::connect();
+	$email = $data['email'];
+	$pass = Hash::make($data['password']);
+	unset($data['email'], $data['password']);
+	
+	$member = new VD\Member;
+	$success = $member->create($email, $pass, $data);
+	if ($success)
+		return 'Success!';
+	else return 'Fail!';
+	//return View::make('admin.login');
+});
+
+Route::controller('member');
+
 /*
 |--------------------------------------------------------------------------
 | Application 404 & 500 Error Handlers
