@@ -1,6 +1,5 @@
 <?php
 namespace Everyman\Neo4j;
-
 /**
  * Represents an index in the database
  */

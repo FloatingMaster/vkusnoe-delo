@@ -82,4 +82,15 @@ class User extends Node
 	{
 		return in_array($capability, json_decode($this->getProperty('capabilities') ) );
 	}
+	
+	
+	
+	
+	
+	
+	/*
+	*
+	*  Новый код, пусть пока побудет здесь.
+	*
+	*/
 }

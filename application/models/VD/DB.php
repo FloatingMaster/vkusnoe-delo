@@ -11,7 +11,7 @@ use Laravel\Config,
  * Класс для работы с базой. Практический весь функционал будет описан в нём. Когда логика усложниться, можно разбить на подмодели для разных типов данных, но может и одного класса хватить. 
  * Рабочий комментарий.
 */
-class DataBase
+class DB
 {
 	public $client;
 
@@ -39,7 +39,7 @@ class DataBase
 		if(self::$instance == NULL) {
 			try {
 				$con_data = Config::get('database.connections.neo4j');
-				self::$instance = new DataBase(
+				self::$instance = new DB(
 					$con_data['host'],
 					$con_data['port']
 				);
@@ -57,5 +57,11 @@ class DataBase
 	{
 		return self::$instance->client;
 	}
-
+	
+	public static function newUser()
+	{
+		$node = new Node;
+		
+		return $node;
+	}
 }
