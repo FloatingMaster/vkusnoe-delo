@@ -53,19 +53,26 @@ Route::post('register', function()
 	$data = Input::all();
     $validation = Validator::make($data, $rules);
     if ($validation->fails()) {
-        return Redirect::to('form.register')->with_errors($validation);
+        return Redirect::to('register')->with_errors($validation)->with('register_errors', true);
     }
 	
 	$db = VD\Database::connect();
+	$login = $data['login'];
 	$email = $data['email'];
-	$pass = Hash::make($data['password']);
-	unset($data['email'], $data['password']);
+	$data['password'] = Hash::make($data['password']);
+	if (VD\Member::getByIndex('login', $data['login']) != null) {
+		//return Redirect::to('register')->with('login duplicate', true);
+		echo 'login duplicate';
+	}
+	if (VD\Member::getByIndex('email', $data['email']) != null) {
+		//return Redirect::to('register')->with('email duplicate', true);
+		echo 'email duplicate';
+	}
 	
-	$member = new VD\Member;
-	$success = $member->create($email, $pass, $data);
+	$success = VD\Member::newOne($data);
 	if ($success)
 		return 'Success!';
-	else return 'Fail!';
+	else return Redirect::to('register')->with('register_errors', true);
 	//return View::make('admin.login');
 });
 

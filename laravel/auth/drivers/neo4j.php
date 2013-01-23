@@ -46,13 +46,11 @@ class Neo4j extends Driver {
 	 */
 	public function attempt($arguments = array())
 	{
-		$email = $arguments['username'];
-		$password = $arguments['password'];
-		$member = Member::getByEmail($email);
+		$member = Member::getByIndex('login', $arguments['username']);
 		if (!$member) {
 			echo 'Member not Found';
 		}
-		if (! is_null($member) && Hash::check( $password, $member->get('password') ) )
+		if (! is_null($member) && Hash::check( $arguments['password'], $member->get('password') ) )
 		{
 			return $this->login($member->getId(), 0);//$arguments['remember']
 		}

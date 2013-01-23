@@ -9,7 +9,10 @@
 			@if (Session::has('register_errors'))
 				<span class="error">Неверные данные! Попробуйте ещё раз</span>
 			@endif
-			<!-- login field -->
+            <!-- login field -->
+			<p>{{ Form::label('login', 'username') }}</p>
+			<p>{{ Form::text('login') }}</p>
+			<!-- email field -->
 			<p>{{ Form::label('email', 'e-mail') }}</p>
 			<p>{{ Form::text('email') }}</p>
 			<!-- password field -->
@@ -17,10 +20,10 @@
 			<p>{{ Form::password('password') }}</p>
             <!-- name field -->
 			<p>{{ Form::label('name', 'Имя') }}</p>
-			<p>{{ Form::password('name') }}</p>
+			<p>{{ Form::text('name') }}</p>
             <!-- family field -->
 			<p>{{ Form::label('family', 'Фамилия') }}</p>
-			<p>{{ Form::password('family') }}</p>
+			<p>{{ Form::text('family') }}</p>
 			<!-- submit button -->
 			<p>{{ Form::submit('Войти') }}</p>
 		{{ Form::close() }}
