@@ -5,7 +5,7 @@ use Everyman\Neo4j\Node,
 	Everyman\Neo4j\Relationship,
     Everyman\Neo4j\Index;
 	
-class Messege
+class message
 {	
 	protected $node = null;
 	
@@ -15,7 +15,7 @@ class Messege
 		$node->addProperty('msg', $msg);
 		$from->node->relateTo 
 		foreach($recipients as $recipient) {
-			$this->node->relateTo($recipient->node, 'PrivateMessege');
+			$this->node->relateTo($recipient->node, 'Privatemessage');
 		}
 	}
 }
