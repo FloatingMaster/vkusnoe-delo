@@ -51,6 +51,27 @@ class Member_Controller extends Controller {
 	
 	public function unsubscribe($username)
 	{
+		// code here
+	}
+	
+	public function action_add_friend($login)
+	{
+		
+	}
+	
+	public function action_friends()
+	
+	{
+		$friends = Auth::user()->getFriends();
+		return View::make('member.friends')->with('friends', $friends);
+	}
+	
+
+	public function action_newrecipe()
+	{ // code from admin panel
+		Asset::add('tinymce', 'js/tiny_mce/tiny_mce.js');
+
+		return View::make('admin.recipe');
 	}
 	
 	public function action_send($to = null)
@@ -70,19 +91,21 @@ class Member_Controller extends Controller {
 		$from->sendPrivate($to, Input::get('text'));
 		return Redirect::to('member/profile/', $to->login);
 	}
-
-	public function action_newrecipe()
-	{ // code from admin panel
-		Asset::add('tinymce', 'js/tiny_mce/tiny_mce.js');
-
-		return View::make('admin.recipe');
-	}
 	
-	public function action_read_private($id = null)
+	public function action_read_private($from = 0)
 	{
 		$member = Auth::user();
-		$msg = $member->getPrivate();
-		return View::make('msg.list')->with('Messeges', $msg);
+		$limit = 10;
+		$messages = $member->getPrivate($from*$limit, $limit);		
+		foreach($messages as $msg) 
+		{
+			echo '<article>';
+			echo 'From: ' . $msg['from']->get('name') . ' ' . $msg['from']->get('family') . '<br>';
+			echo date('Y-m-d h:m', $msg['date']) . '<br>';
+			echo '<p>' . $msg['msg'] . '</p><br>';
+			echo '</article>';
+		}
+		//return View::make('msg.list')->with('messages', $msg);
 	}
 	
 	
