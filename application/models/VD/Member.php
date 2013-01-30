@@ -5,10 +5,16 @@ use Everyman\Neo4j\Node,
 	Everyman\Neo4j\Relationship,
     Everyman\Neo4j\Index,
 	Everyman\Neo4j\Cypher,
-	Everyman\Neo4j\Batch;
+	Everyman\Neo4j\Batch,
+	VD\DataBase as DB;
 	
 class Member
 {
+	// Бля. А мне казалось, что наследовать модели от класса Node - 
+	// неплохая идея.
+	// Она же реально неплохая! Нам не придется писать геттеры для каждого
+	// свойства модели, а ведь их будет становиться все больше!
+	// Может, все-таки сделаем как я думал?
 	public $id = null;
 	public $login = null;	
 	public $node = null; 	//node as property of an object. Its more useful then Class extends Node 
@@ -18,8 +24,7 @@ class Member
 	{
 		$this->node = $node;
 		$this->id = $node->getId();
-		$this->email = $this->get('email');
-		$this->login = $this->get('login');
+		// убрал ненужные присвоения, магия же пашет
 	}
 	
 	/**
@@ -30,7 +35,7 @@ class Member
 	 */
 	public function sendPrivate(Member $to, $msg)
 	{
-		$client = DataBase::client();
+		$client = DB::client();
 		$batch = $client->startBatch();
 		$node = new Node($client);
 		$node->setProperty('msg', $msg);
@@ -47,7 +52,7 @@ class Member
 	 * Send private message to user.
 	 *
 	 * @param  Member $to, string $id
-	 * @return true|make excaption
+	 * @return array
 	 */
 	public function getPrivate($from = 0, $limit = 10) // need to make some pagination or diolog system
 	{
@@ -57,7 +62,7 @@ class Member
 			"ORDER BY x.date ".
 			"SKIP ".$from.
 			"LIMIT ".$limit;
-		$query = new Cypher\Query(DataBase::client(), $queryString);
+		$query = new Cypher\Query(DB::client(), $queryString);
 		$result = $query->getResultSet();
 		$msg = array();
 		foreach ($result as $row) 
@@ -89,7 +94,7 @@ class Member
 			}
 			return true;
 		}
-		$dialog = new Node(DataBase::client());
+		$dialog = new Node(DB::client());
 		$dialog->setProperty(time(), 'Last');
 		$dialog->ralateTo();
 	}
@@ -164,7 +169,7 @@ class Member
 	 */
 	public function getFriends()
 	{
-		//self::addFriend(new Member(DataBase::client()->getNode(17)));
+		//self::addFriend(new Member(DB::client()->getNode(17)));
 		$relationships = $this->node->getRelationships('Friends');
 		$friends = array();
 		foreach ($relationships as $ralationship) 
@@ -185,8 +190,9 @@ class Member
 	 */
 	public static function newOne($data)
 	{
-		//$member->node = new Node(DataBase::client());
-		$member = new Member(DataBase::client()->makeNode());
+		//$member->node = new Node(DB::client());
+		// бля. 
+		$member = new Member(DB::client()->makeNode());
 		
 		
 		if (!Member::GetByIndex('login', $data['login'])&&!Member::GetByIndex('email', $data['email'])) {
@@ -199,7 +205,7 @@ class Member
 			$memberIndex->add($member->node, 'email', $data['email']);
 			$memberIndex->save();
 			return true;	
-		} else return 'already registered!';//excaption need, or catch in controller
+		} // else return 'already registered!'; // твоюж мать
 	}
 	
 	/**
@@ -210,13 +216,13 @@ class Member
 	 */
 	public static function GetByIndex($property, $value)
 	{
-		$memberIndex = new Index\NodeIndex(DataBase::client(), 'Member');
+		$memberIndex = new Index\NodeIndex(DB::client(), 'Member');
 		//$matches = $memberIndex->find('email', 'master2');
         $node = $memberIndex->findOne($property, $value	);
         if (!$node) {
             return null;
         }
-        $member = new member($node);
+        $member = new Member($node);
         return $member;
 	}
 	/**
@@ -227,7 +233,7 @@ class Member
 	 */
 	public static function getById($id)
 	{
-		$member = new Member(DataBase::client()->getNode($id));
+		$member = new Member(DB::client()->getNode($id));
 		return $member;
 	}
 	/**
@@ -240,26 +246,30 @@ class Member
 	{
 		return $this->node->getId();
 	}
+
+	// Эти методы не нужны. Любое свойство можно получить и установить так:
+	// $member->property
 	/**
 	 * Get current user's property
 	 *
 	 * @param  string $property
 	 * @return mixed
 	 */
-	public function get($property)
-	{
-		return $this->node->getProperty($property);
-	}
+	// public function get($property)
+	// {
+	// 	return $this->node->getProperty($property);
+	// }
 	/**
 	 * Set current user's property
 	 *
 	 * @param  string $property, mixed $value
 	 * @return true|make excaption
 	 */
-	public function set($property, $value)
-	{
-		return $this->node->setProperty($property, $value);
-	}
+	// public function set($property, $value)
+	// {
+	// 	return $this->node->setProperty($property, $value);
+	// }
+	
 	/**
 	 * Get all current user's properties
 	 *

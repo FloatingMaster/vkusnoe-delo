@@ -1,7 +1,7 @@
 ﻿<?php
 
 use
-	VD\DataBase,
+	VD\DataBase as DB,
 	VD\Member;
 
 class Member_Controller extends Controller {
@@ -18,14 +18,14 @@ class Member_Controller extends Controller {
 		if (is_null($login)) {
 			return View::make('member.notfound'); // or redirect to self page
 		}
-		$db = DataBase::connect();
+		$db = DB::connect();
 		$member = Member::GetByIndex('login', $login);
 		if (is_null($member)) {
 			//return View::make('error.404');
 			return View::make('member.notfound');
 		}
 		
-		$node = DataBase::client()->getNode(17);
+		$node = DB::client()->getNode(17);
 		$friend = new Member($node);
 		
 		//$member->addFriend($friend);

@@ -46,16 +46,19 @@ class Neo4j extends Driver {
 	 */
 	public function attempt($arguments = array())
 	{
-		$member = Member::getByIndex('login', $arguments['username']);
-		if (!$member) {
-			echo 'Member not Found';
+		try {	
+			$member = Member::getByIndex('login', $arguments['username']);
+			if (!$member) {
+				throw new \Exception('Пользователь не найден');
+			}
+			if (! is_null($member) && Hash::check( $arguments['password'], $member->get('password') ) )
+			{
+				return $this->login($member->getId(), 0);//$arguments['remember']
+			}
+		} catch(\Exception $e) {
+			echo $e->getMessage();
+			return false;
 		}
-		if (! is_null($member) && Hash::check( $arguments['password'], $member->get('password') ) )
-		{
-			return $this->login($member->getId(), 0);//$arguments['remember']
-		}
-
-		return false;
 	}
 }
 
