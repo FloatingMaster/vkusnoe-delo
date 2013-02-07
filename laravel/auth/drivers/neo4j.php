@@ -51,7 +51,7 @@ class Neo4j extends Driver {
 			if (!$member) {
 				throw new \Exception('Пользователь не найден');
 			}
-			if (! is_null($member) && Hash::check( $arguments['password'], $member->get('password') ) )
+			if (! is_null($member) && Hash::check( $arguments['password'], $member->password ) )
 			{
 				return $this->login($member->getId(), 0);//$arguments['remember']
 			}

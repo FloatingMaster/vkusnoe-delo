@@ -11,7 +11,7 @@ use Laravel\Config,
  * Класс для работы с базой. Практический весь функционал будет описан в нём. Когда логика усложниться, можно разбить на подмодели для разных типов данных, но может и одного класса хватить. 
  * Рабочий комментарий.
 */
-class DataBase
+class Database
 {
 	public $client;
 
@@ -23,7 +23,7 @@ class DataBase
 	 *
 	 * @param 	string 	$host
 	 * @param 	string|int 	$port
-	 * @return 	Database
+	 * @return 	DataBase
 	 */
 	private function __construct($host, $port)
 	{
@@ -52,6 +52,7 @@ class DataBase
 	
 	/**
 	 * А где описание?
+	 * fLf: А ну его нахер, и так все ясно.
 	 */
 	public static function client()
 	{

@@ -5,7 +5,8 @@
 		tinyMCE.init({
 			theme: "advanced",
 			mode : "textareas",
-			skin: "thebigreason"
+			skin: "thebigreason",
+            plugins: "images"
 		});
 	</script>
 @endsection
@@ -15,5 +16,9 @@
 @endsection
 
 @section('main')
-	<textarea class='recipe-editor'>Здесь будет немного редактора</textarea>
+    <form action="/admin/recipe/new" class="recipe">
+        <input type="text" class="recipe-title" placeholder="Название рецепта">
+    	<textarea class='recipe-content'>Здесь будет немного редактора</textarea>
+        <button class="recipe-submit">Опубликовать</button>
+    </form>
 @endsection

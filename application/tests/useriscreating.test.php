@@ -1,7 +1,7 @@
 <?php
 use Laravel\Auth,
 	Everyman\Neo4j\Node,
-	VD\User,
+	VD\Member,
 	VD\Database as DB;
 
 class TestUserIsCreating extends PHPUnit_Framework_TestCase {
@@ -15,11 +15,12 @@ class TestUserIsCreating extends PHPUnit_Framework_TestCase {
 			if($node == NULL) {
 				$this->assertNull($user);
 			} else {
-				$this->assertEquals($node->getProperty('type') === 'user', $user instanceof User);
+				$this->assertEquals($node->type === 'user', $user instanceof Member);
+				$this->assertEquals($node->id, $user->id);
 				if ($user != NULL) {
-					$this->assertInstanceOf('VD\User', $user);
+					$this->assertInstanceOf('VD\Member', $user);
 					$this->objectHasAttribute('properties', $user);
-					$this->assertEquals($user->getProperty('type'), 'user');
+					$this->assertEquals($user->type, 'user');
 				}
 			}
 		}

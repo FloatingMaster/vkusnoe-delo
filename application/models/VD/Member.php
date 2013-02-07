@@ -6,27 +6,35 @@ use Everyman\Neo4j\Node,
     Everyman\Neo4j\Index,
 	Everyman\Neo4j\Cypher,
 	Everyman\Neo4j\Batch,
-	VD\DataBase as DB;
-	
-class Member
+	VD\Database as DB;
+/**
+ * Класс пользователя. Сделал его ребенком узла.
+ */
+class Member extends Node
 {
-	// Бля. А мне казалось, что наследовать модели от класса Node - 
-	// неплохая идея.
-	// Она же реально неплохая! Нам не придется писать геттеры для каждого
-	// свойства модели, а ведь их будет становиться все больше!
-	// Может, все-таки сделаем как я думал?
-	public $id = null;
-	public $login = null;	
-	public $node = null; 	//node as property of an object. Its more useful then Class extends Node 
-	protected $data = array();
 	
-	public function __construct($node)
+	public function __construct(Node $node)
 	{
-		$this->node = $node;
-		$this->id = $node->getId();
-		// убрал ненужные присвоения, магия же пашет
+		foreach ($node as $property => $value) {
+			$this->$property = $value;
+		}
+		parent::__construct(DB::client());
 	}
 	
+	/**
+	 * Возвращает пользователя или NULL, если узел не найден
+	 * @param  int $id - ID узла
+	 * @return Member|null
+	 */
+	public static function getById($id)
+	{
+		$node = DB::client()->getNode($id);
+		if($node == NULL) {
+			return NULL;
+		}
+		return new Member($node);
+	}
+
 	/**
 	 * Send private message to user.
 	 *
@@ -41,8 +49,8 @@ class Member
 		$node->setProperty('msg', $msg);
 		$node->setProperty('date', time());
 		$node->save();
-		$node->relateTo($this->node, 'PrivateFrom')->save();
-		$node->relateTo($to->node, 'PrivateTo')->save();
+		$node->relateTo($this, 'PrivateFrom')->save();
+		$node->relateTo($to, 'PrivateTo')->save();
 		//$this->node->makeDialog($to);
 		$client->endBatch();
 		return $batch->commit();
@@ -106,9 +114,9 @@ class Member
 	 * @param  Member $friend
 	 * @return true|make excaption
 	 */
-	public function Subscribe(Member $friend)
+	public function subscribe(Member $friend)
 	{
-		return $this->node->relateTo($friend->node, 'Subscrible')->save();
+		return $this->relateTo($friend, 'Subscrible')->save();
 	}
 	
 	/**
@@ -119,7 +127,7 @@ class Member
 	 */
 	public function getFriendRequest()
 	{
-		$relationships = $this->node->getRelationships('Subscrible', Relationship::DirectionIn); // all incoming
+		$relationships = $this->getRelationships('Subscrible', Relationship::DirectionIn); // all incoming
 		$friend_request = array();
 		foreach($relationships as $relationship) 
 		{ 
@@ -135,7 +143,7 @@ class Member
 	 */
 	public function declineFriendRequest(Member $notFriend)
 	{
-		$requestRelationship = $notFriend->node->findPathsTo($this->node, 'Subscrible', Relationship::DirectionOut)
+		$requestRelationship = $notFriend->findPathsTo($this, 'Subscrible', Relationship::DirectionOut)
 			->getSinglePath();
 		echo '<pre>';
 		print_r($requestRelationship);
@@ -158,7 +166,7 @@ class Member
 			$rel->setId(0); //use same id for new rel
 		}
 		*/
-		return $this->node->relateTo($friend->node, 'Friends')->save(); 
+		return $this->relateTo($friend, 'Friends')->save(); 
 	}
 	
 	/**
@@ -169,14 +177,16 @@ class Member
 	 */
 	public function getFriends()
 	{
-		//self::addFriend(new Member(DB::client()->getNode(17)));
-		$relationships = $this->node->getRelationships('Friends');
 		$friends = array();
-		foreach ($relationships as $ralationship) 
-		{
-			$node = $ralationship->getEndNode();
-			if ($node->getId() == $this->id)
-				$node = $ralationship->getStartNode(); // bad code, need Query
+		// bad code, need Query
+		// ты прав.
+		$queryString = "START n=node(".$this->id.") ".
+			"MATCH (n)<-[:Friends]-(x)-[:Friends]->(n) ".
+			"RETURN x ";
+		$query = new Cypher\Query(DB::client(), $queryString);
+		$res = $query->getResultSet();
+		foreach ($res as $row) {
+			$node = $row['x'];
 			$friends[] = new Member($node);
 		}
 		return $friends;
@@ -191,10 +201,8 @@ class Member
 	public static function newOne($data)
 	{
 		//$member->node = new Node(DB::client());
-		// бля. 
 		$member = new Member(DB::client()->makeNode());
-		
-		
+
 		if (!Member::GetByIndex('login', $data['login'])&&!Member::GetByIndex('email', $data['email'])) {
 			foreach ($data as $key=>$value) {
 				$member->node->setProperty($key, $value);
@@ -214,90 +222,42 @@ class Member
 	 * @param  string $property, $values
 	 * @return Member|null
 	 */
-	public static function GetByIndex($property, $value)
+	public static function getByIndex($property, $value)
 	{
-		$memberIndex = new Index\NodeIndex(DB::client(), 'Member');
+		$memberIndex = new Index\NodeIndex(DB::client(), 'Members');
 		//$matches = $memberIndex->find('email', 'master2');
-        $node = $memberIndex->findOne($property, $value	);
+        $node = $memberIndex->findOne($property, $value);
         if (!$node) {
             return null;
         }
         $member = new Member($node);
         return $member;
 	}
-	/**
-	 * Get user by Id
-	 *
-	 * @param  integer $id
-	 * @return Member|null
-	 */
-	public static function getById($id)
-	{
-		$member = new Member(DB::client()->getNode($id));
-		return $member;
-	}
-	/**
-	 * Get current user's id
-	 *
-	 * @param  none
-	 * @return integer
-	 */
-	public function getId()
-	{
-		return $this->node->getId();
-	}
-
-	// Эти методы не нужны. Любое свойство можно получить и установить так:
-	// $member->property
-	/**
-	 * Get current user's property
-	 *
-	 * @param  string $property
-	 * @return mixed
-	 */
-	// public function get($property)
-	// {
-	// 	return $this->node->getProperty($property);
-	// }
-	/**
-	 * Set current user's property
-	 *
-	 * @param  string $property, mixed $value
-	 * @return true|make excaption
-	 */
-	// public function set($property, $value)
-	// {
-	// 	return $this->node->setProperty($property, $value);
-	// }
 	
 	/**
 	 * Get all current user's properties
+	 * Теперь это просто обертка
 	 *
 	 * @param  string $property
 	 * @return true|make excaption
 	 */
 	public function data()
 	{
-		return $this->node->getProperties();
+		return $this->getProperties();
 	}
-	
 	
 	public function getRecepts()
 	{
-		return $client->getNodeRelationships($this->Node, 'recipes');
+		// изменил название отношения к выложенному рецепту, кажется, так гораздо понятнее
+		// надо будет, наверное, возвращать не массив отношений а массив конкретно рецептов.
+		return $this->getRelationships('POSTED_RECEIPT');
 	}
 	
 	/**
-	 * Doesn't working yet
+	 * Doesn't work yet
 	 */
 	public function addRecipe($recipe)
 	{
 		// code...
 	}
-	
-	public function save()
-	{
-        $this->node->save();       
-	}
-	
 }

@@ -42,6 +42,15 @@ Route::get('adminlogin', function()
 	return View::make('admin.login');
 });
 
+Route::post('adminlogin', function()
+{
+	if (Auth::attempt(Input::all())) {
+		return Redirect::to('admin');
+	} else {
+		return Redirect::to('adminlogin')->with('login_errors', true);
+	}
+});
+
 Route::get('register', function()
 {
 	return View::make('form.register');
@@ -56,7 +65,6 @@ Route::post('register', function()
         return Redirect::to('register')->with_errors($validation)->with('register_errors', true);
     }
 	
-	$db = VD\Database::connect();
 	$login = $data['login'];
 	$email = $data['email'];
 	$data['password'] = Hash::make($data['password']);
@@ -70,13 +78,12 @@ Route::post('register', function()
 	}
 	
 	$success = VD\Member::newOne($data);
-	if ($success)
+	if ($success) {
 		return 'Success!';
+	}
 	else return Redirect::to('register')->with('register_errors', true);
 	//return View::make('admin.login');
 });
-
-Route::controller('member');
 
 /*
 |--------------------------------------------------------------------------
@@ -153,13 +160,16 @@ Route::filter('auth', function()
 
 Route::filter('admin_auth', function()
 {
-	if (Auth::guest() || ! Auth::user()->hasCap('view_admin_panel')) return Redirect::to('adminlogin');
+	if (Auth::check()) {
+		if (Auth::user()->security_level < 5) {
+			return Redirect::to('adminlogin')->with('low_security_level', true);
+		}
+	} else {
+		return Redirect::to('adminlogin');
+	}
 });
 
 /**
  * Register all of the controllers
  */
 Route::controller(Controller::detect());
-
-// Route for Admin_Controller
-Route::controller('admin');

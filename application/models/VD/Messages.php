@@ -6,7 +6,7 @@ use Everyman\Neo4j\Node,
     Everyman\Neo4j\Index,
 	Everyman\Neo4j\Batch;
 	
-class Messages
+class Messages extends Node
 {
 	public $id = null;
 	public $login = null;	
@@ -40,6 +40,7 @@ class Messages
 		$client->endBatch();
 		return $batch->commit();
 	}
+
 	/**
 	 * Send private message to user.
 	 *
@@ -48,7 +49,7 @@ class Messages
 	 */
 	public function getPrivate($from = 0, $limit = 10) // need to make some pagination or diolog system
 	{
-		$messages = $this->node->getRelationships('PrivateTo', Relationship::DirectionIn);
+		$messages = $this->getRelationships('PrivateTo', Relationship::DirectionIn);
 		$result = array();
 		foreach($messages as $msg) 
 		{

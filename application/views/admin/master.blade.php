@@ -1,10 +1,6 @@
 <html>
 <head>
-	<title>
-		@section('title')
-			| Администратор Вкусного Дела
-		@yield_section
-	</title>
+	{{ Seovel::title()  }}
 	{{ Asset::styles()  }}
 	{{ Asset::scripts() }}
 	@yield('headparts')

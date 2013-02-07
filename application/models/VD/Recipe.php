@@ -2,43 +2,27 @@
 namespace VD;
 
 use Everyman\Neo4j\Node,
-    Everyman\Neo4j\Index;
+    Everyman\Neo4j\Index,
+    Database as DB;
 
-class Recipe
+class Recipe extends Node
 {
-	protected $node;
-	protected $id = null;
-	protected $name = '';
-	protected $data = array();
-	protected $real = false;
+	// fLf: убрал все свойства. у нас же есть properties
 	
-	public function __construct($node)
+	public function __construct(Node $node)
 	{
-		if ($node instanceof Node) {
-			$this->node = $node;
-			$this->id = $node->getId();
-		} 
-	}
-	public function create($name, $data)
-	{
-		$this->node = DataBase::client()->makeNode();
-		
-		$index = new Index(DataBase::client(), Index::TypeNode, 'login');
-		
-		if (!$memberIndex->findOne('login', $login)) {
-			$this->node->setProperty('login', $login);
-			$this->login = $login;	
-			$this->node->setProperty('password', $password);
-			//$this->password = $password;
-			$this->data = $data;
-			foreach ($data as $key=>$value) {
-				$this->node->setProperty($key, $value);
-			}
-			
-			$this->save($this);
-			$memberIndex->add($this->node, 'login', $this->login);
-			return true;	
+		foreach ($node as $property => $value) {
+			$this->$property = $value;
 		}
+		parent::__construct(DB::client());
+	}
+
+	public static function create($name, $data)
+	{
+		$recipe = new Recipe(DB::client()->makeNode());
+		
+		$index = new Index(DB::client(), 'Recipes');
+		
 	}
 	
 }
