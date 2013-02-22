@@ -8,7 +8,7 @@ use Everyman\Neo4j\Node,
 	Everyman\Neo4j\Batch,
 	VD\Database as DB;
 /**
- * Класс пользователя. Сделал его ребенком узла.
+ * Класс пользователя. Сделал его ребенком узла. 
  */
 class Member extends Node
 {

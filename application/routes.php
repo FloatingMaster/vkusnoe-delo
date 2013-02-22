@@ -169,7 +169,21 @@ Route::filter('admin_auth', function()
 	}
 });
 
+/*
+Route::filter('access', function()
+{
+	$access = new Access; // Переделать в static
+	if ($role->askFor(Auth::user(), $action)) {
+		return true;
+	} else {
+		return Redirect::to('access');
+	}
+});
+*/
+
+
 /**
  * Register all of the controllers
  */
 Route::controller(Controller::detect());
+
